@@ -42,7 +42,7 @@ public class ThirdPersonShooterController : MonoBehaviour
             aimVirtualCamera.gameObject.SetActive(true);
             thirdPersonController.SetSensitivity(aimSensitivity);
             thirdPersonController.SetRotateOnMove(false);
-            animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 1f, Time.deltaTime * 13f));
+            //animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 1f, Time.deltaTime * 13f));
 
             Vector3 worldAimTarget = mouseWorldPosition;
             worldAimTarget.y = transform.position.y;
@@ -53,7 +53,7 @@ public class ThirdPersonShooterController : MonoBehaviour
             aimVirtualCamera.gameObject.SetActive(false);
             thirdPersonController.SetSensitivity(normalSensitivity);
             thirdPersonController.SetRotateOnMove(true);
-            animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 0f, Time.deltaTime * 13f));
+            //animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 0f, Time.deltaTime * 13f));
         }
 
 
@@ -62,7 +62,7 @@ public class ThirdPersonShooterController : MonoBehaviour
             if(hasBullet) {
                 Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
                 Instantiate(pfBulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
-                // hasBullet = false;
+                hasBullet = false;
             }
             starterAssetsInputs.shoot = false;
         

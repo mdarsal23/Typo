@@ -126,10 +126,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c46fb6ec9bca347c5bb0a14cac194c99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  thirdPersonShooterController: {fileID: 0}
-  playerCatchTag: Player
   speed: 10
-  destroyBulletAfterSeconds: 40
+  maxDistance: 100
+  maxBounces: 10
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  player: {fileID: 0}
+  catchTag: Player
 --- !u!54 &1228136304518737452
 Rigidbody:
   m_ObjectHideFlags: 0
