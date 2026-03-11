@@ -24,6 +24,9 @@ namespace StarterAssets
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
         public float RotationSmoothTime = 0.12f;
+        
+        [Tooltip("Mouse sensitivity multiplier")]
+        public float MouseSensitivity = 1.0f;
 
         [Tooltip("Acceleration and deceleration")]
         public float SpeedChangeRate = 10.0f;
@@ -198,8 +201,8 @@ namespace StarterAssets
                 //Don't multiply mouse input by Time.deltaTime;
                 float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
-                _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier;
-                _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier;
+                _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier * MouseSensitivity;
+                _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier * MouseSensitivity;
             }
 
             // clamp our rotations so our values are limited 360 degrees
@@ -367,6 +370,11 @@ namespace StarterAssets
             Gizmos.DrawSphere(
                 new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z),
                 GroundedRadius);
+        }
+
+        public void SetSensitivity(float sensitivity)
+        {
+            MouseSensitivity = sensitivity;
         }
 
         private void OnFootstep(AnimationEvent animationEvent)
