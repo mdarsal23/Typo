@@ -9,12 +9,7 @@ public class doorOpen : MonoBehaviour
     [SerializeField] private bool playerInRange = false;
     private bool isOpening = false;
 
-    private AudioSource audioSource;
-
-    void Start()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
+    [SerializeField] private AudioSource audioSource;
 
     void Update()
     {
