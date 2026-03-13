@@ -2234,9 +2234,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8520462568561026916}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1.75, y: 1.75, z: 1.75}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 9115184980870816472}
@@ -2492,7 +2492,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   debugTransform: {fileID: 0}
-  pfBulletProjectile: {fileID: 2691308899747175733, guid: f258652d1ea9b4115951ae1132be851c, type: 3}
+  pfBulletProjectile: {fileID: 3666341336303803829, guid: 641b71fff6cf14bc1becb02f1df22c6a, type: 3}
   spawnBulletPosition: {fileID: 2751543554880832794}
   hasBullet: 1
 --- !u!136 &4289083957344149860
