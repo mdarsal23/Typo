@@ -15,7 +15,7 @@ public class EnemyAI : MonoBehaviour
     Animator animator;
     public Transform player;
     bool canReach = false;
-
+    public int damage = 10;
     public float detectionRange = 12f;
     public float attackRange = 2f;
     public float attackCooldown = 1.5f;
@@ -49,8 +49,6 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log(agent.isOnNavMesh);
-        Debug.Log(canReach);
         pathCheckTimer += Time.deltaTime;
 
          if(pathCheckTimer >= 0.5f)
@@ -146,7 +144,7 @@ public class EnemyAI : MonoBehaviour
     void Attack()
     {
         Debug.Log("Enemy attacks player");
-        // player.TakeDamage();
+        player.GetComponent<ThirdPersonShooterController>().TakeDamage(damage);
     }
 
     public void Die()

@@ -38,12 +38,8 @@ public class BulletBehaviour : MonoBehaviour
             {
                 pathPoints.Add(hit.point);
 
-                if(hit.collider.CompareTag("Enemy"))
-                {
-                    Destroy(hit.collider.gameObject);
-                }
-
-                direction = Vector3.Reflect(direction, hit.normal);
+                if(!hit.collider.CompareTag("Enemy"))
+                    direction = Vector3.Reflect(direction, hit.normal);
                 position = hit.point + direction * 0.01f;
             }
             else
@@ -84,6 +80,13 @@ public class BulletBehaviour : MonoBehaviour
             playerController.setHasBullet();
             Debug.Log("Bullet caught by player!");
             Destroy(gameObject);
+        }
+        else if(collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("Bullet hit an enemy: " + collision.gameObject.name);
+            EnemyAI enemyAI = collision.gameObject.GetComponent<EnemyAI>();
+            if(enemyAI != null)
+                enemyAI.Die();
         }
         else{
             Debug.Log("Bullet collided with: " + collision.gameObject.name);
