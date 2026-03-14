@@ -15,7 +15,9 @@ public class EnemyAI : MonoBehaviour
     Animator animator;
     public Transform player;
     bool canReach = false;
+
     public int damage = 10;
+
     public float detectionRange = 12f;
     public float attackRange = 2f;
     public float attackCooldown = 1.5f;
@@ -23,6 +25,12 @@ public class EnemyAI : MonoBehaviour
     private float lastAttackTime;
 
     private NavMeshAgent agent;
+
+    // --- Animation rotation offsets (edit in Inspector) ---
+    public float idleYawOffset = 0f;
+    public float walkYawOffset = 0f;
+    public float runYawOffset = 0f;
+    public float attackYawOffset = 0f;
 
     // Helper function
     bool HasPathToPlayer()
@@ -51,7 +59,7 @@ public class EnemyAI : MonoBehaviour
     {
         pathCheckTimer += Time.deltaTime;
 
-         if(pathCheckTimer >= 0.5f)
+        if(pathCheckTimer >= 0.5f)
         {
             canReach = HasPathToPlayer();
             pathCheckTimer = 0f;
@@ -78,11 +86,26 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    void RotateTowardsPlayer(float yawOffset)
+    {
+        Vector3 dir = (player.position - transform.position).normalized;
+        dir.y = 0;
+
+        if(dir != Vector3.zero)
+        {
+            Quaternion targetRot = Quaternion.LookRotation(dir);
+            targetRot *= Quaternion.Euler(0, yawOffset, 0);
+            transform.rotation = targetRot;
+        }
+    }
+
     void IdleState(float distance)
     {
         agent.isStopped = true;
 
         animator.SetFloat("Speed", 0f);
+
+        RotateTowardsPlayer(idleYawOffset);
 
         if(distance < detectionRange)
         {
@@ -92,11 +115,11 @@ public class EnemyAI : MonoBehaviour
 
     void ChaseState(float distance)
     {
-
         if(!canReach)
         {
             agent.isStopped = true;
-            animator.SetFloat("Speed", 0.3f); // idle with alert
+            animator.SetFloat("Speed", 0.3f);
+            RotateTowardsPlayer(idleYawOffset);
             return;
         }
 
@@ -105,13 +128,15 @@ public class EnemyAI : MonoBehaviour
 
         if(distance < 8f)
         {
-            agent.speed = 4.5f;
-            animator.SetFloat("Speed", 1f); // run
+            agent.speed = 0f;
+            animator.SetFloat("Speed", 1f);
+            RotateTowardsPlayer(runYawOffset);
         }
         else
         {
-            agent.speed = 2f;
-            animator.SetFloat("Speed", 0.5f); // walk
+            agent.speed = 0f;
+            animator.SetFloat("Speed", 0.5f);
+            RotateTowardsPlayer(walkYawOffset);
         }
 
         if(distance < attackRange)
@@ -124,7 +149,7 @@ public class EnemyAI : MonoBehaviour
     {
         agent.isStopped = true;
 
-        transform.LookAt(player);
+        RotateTowardsPlayer(attackYawOffset);
 
         animator.SetFloat("Speed", 0f);
 
